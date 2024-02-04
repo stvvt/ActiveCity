@@ -1,0 +1,23 @@
+@{
+    foreach (string roleName in Enum.GetNames(typeof(ActiveCity.Models.Role))) {
+      if (User.IsInRole(roleName)) {
+        ViewData["Role"] = roleName;
+        break;
+      }
+    }
+}
+
+<ul class="navbar-nav">
+@if (User.Identity != null && User.Identity.Name != null) {
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="@ViewData["Role"]" asp-page="/Index">@User.Identity.Name</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-page="/Login">Logout</a>
+    </li>
+} else {
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-page="/Login">Login</a>
+    </li>
+}
+</ul>
